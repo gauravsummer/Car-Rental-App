@@ -1,0 +1,40 @@
+<h1>Book Car</h1>
+<h4>Model: <%= @car.model %></h4>
+<h4>Manufacturer: <%= @car.manufacturer %></h4>
+<h4>Style: <%= @car.style %></h4>
+<h4>Rate per hour ($): <%= @car.price %></h4>
+<h4>Location: <%= @car.location %></h4><br>
+
+<%= form_for [@car, @booking] do |f| %>
+    <% if @booking.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+
+          <ul>
+            <% @booking.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <% if current_user.user_type.in?([0, 1]) %>
+        <div class='field'>
+          <%= f.label :select_user %>
+          <%= f.collection_select :user_id, @users, :id, :email %>
+        </div>
+    <% end %>
+
+    <div class='field'>
+      <%= f.label :start_time %>
+      <%= f.datetime_local_field :start_time, class: "form-control" %>
+    </div>
+    <br />
+    <div class='field'>
+      <%= f.label :end_time %>
+      <%= f.datetime_field :end_time, class: "form-control" %>
+    </div>
+    <br />
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

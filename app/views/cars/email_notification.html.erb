@@ -1,0 +1,28 @@
+<h1>Email Notification Details</h1>
+<%= link_to 'Show', @car %>
+<%= link_to 'Back', cars_path %>
+
+<%= form_for(@car) do |f| %>
+    <% if @car.errors.any? %>
+        <div id='error_explanation'>
+          <h2><%= pluralize(@car.errors.count, 'error') %> prohibited this car from being saved:</h2>
+
+          <ul>
+            <% @car.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :email_register %>
+      <%= f.select 'email_register', options_for_select([['Yes', true], ['No', false]])%>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Register', class: 'btn btn-primary btn-md text-white' %>
+    </div>
+
+<%end%>

@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to "Home", current_user, :method => :get %>
+
+<h1>Welcome <%= @user.name %></h1>
+
+
+
+
+<h4>
+  <%= link_to 'Edit Profile', edit_user_path(@user), {:style=>'color:blue;', :class => "css_class"} %>
+  <br />
+  <% if @user.user_type.in?([0]) %>
+      <%= link_to 'Manage Super Admins', show_superadmin_path, {:style=>'color:blue;', :class => "css_class"} %><br>
+  <% end %>
+  <% if @user.user_type.in?([0, 1]) %>
+      <%= link_to 'Manage Admins', show_admin_path, {:style=>'color:blue;', :class => "css_class"} %><br>
+      <%= link_to 'Manage Users',  users_path, {:style=>'color:blue;', :class => "css_class"} %><br>
+      <%= link_to 'Manage Cars', cars_path(), {:style=>'color:blue;', :class => "css_class"} %><br>
+      <%= link_to 'Manage bookings', bookings_path(), {:style=>'color:blue;', :class => "css_class"} %>
+      <br />
+  <% else %>
+      <%= link_to 'Rent a Car', cars_path(), {:style=>'color:blue;', :class => "css_class"} %><br>
+      <%= link_to 'Manage Bookings', bookings_path(), {:style=>'color:blue;', :class => "css_class"} %>
+  <% end %>
+</h4>
+
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+</div>
